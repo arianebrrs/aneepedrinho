@@ -1,0 +1,303 @@
+body 
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff5f5;
+    color: #4a4a4a;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+body {
+    /* Substitua 'nome-da-imagem.jpg' pelo caminho correto da sua imagem */
+    background-image: url('fundo.png');
+    
+    /* Garante que a imagem cubra toda a tela sem distorcer */
+    background-size: cover;
+    
+    /* Centraliza a imagem na tela */
+    background-position: center;
+    
+    /* Impede que a imagem fique se repetindo caso seja menor que a tela */
+    background-repeat: no-repeat;
+    
+    /* Mantém o fundo fixo enquanto você rola a página (opcional) */
+    background-attachment: fixed;
+    
+    /* Define uma cor de fundo de segurança caso a imagem demore para carregar */
+    background-color: #cccccc; 
+}
+header {
+    margin: 50px 20px;
+}
+
+h1 {
+    color: #f5c0cf;
+}
+#contador {
+  color: white;
+}
+#contador span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f5c0cf;
+}
+
+/* --- container invisível onde os corações vão cair --- */
+#anniversary-overlay {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none; /* Garante que os corações não bloqueiem os cliques no seu site */
+  overflow: hidden;
+}
+
+/* --- estilo de cada coração --- */
+.heart-particle {
+  position: absolute;
+  top: -60px;
+  animation: fall linear forwards;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --- animação da queda --- */
+@keyframes fall {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+/* Linha do Tempo */
+.timeline {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.marco {
+    background: white;
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.marco img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Botão Flutuante de Música */
+.floating-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #de436f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Botão de Saudade */
+#btn-saudade {
+    background-color: #ff758f;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-saudade:hover {
+    background-color: #ff4d6d;
+}
+#mensagem-saudade {
+  color: white;
+}
+.hidden {
+    display: none;
+}
+
+
+/* Estilo do título da Linha do Tempo */
+.titulo-timeline {
+    color: #f5c0cf; /* Cor rosa/vermelha combinando com o tema */
+    font-size: 2rem;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Um detalhe extra: uma linha fofa embaixo do título */
+.titulo-timeline::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #ff758f;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Container do Carrossel */
+.carrossel-container {
+    position: relative;
+    max-width: 100%;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden; /* Esconde as fotos que estão fora da tela */
+}
+
+/* Tamanho das imagens dentro do carrossel */
+.slides img {
+    width: 100%;
+    display: none; /* Esconde todas as fotos por padrão */
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Mostra apenas a foto que tiver a classe 'ativo' */
+.slides img.ativo {
+    display: block;
+    animation: fadeEffect 0.5s; /* Efeito suave ao mudar de foto */
+}
+
+/* Configuração das Setinhas */
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo pretinho transparente */
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.seta:hover {
+    background-color: #ff4d6d; /* Fica rosa ao passar o mouse */
+}
+
+.anterior { left: 10px; }
+.proximo { right: 10px; }
+
+/* Efeito de transição suave */
+@keyframes fadeEffect {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+/* Container que cobre a tela toda */
+#modal-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9); /* Fundo preto bem escuro */
+    z-index: 9999; /* Garante que fica na frente de TUDO no site */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Caixa interna que segura o vídeo */
+.modal-conteudo {
+    position: relative;
+    width: 90%;
+    max-width: 800px; /* Não deixa ficar gigante demais em telas de PC */
+    display: flex;
+    justify-content: center;
+}
+
+/* O vídeo em si adaptável */
+#video-saudade {
+    width: 100%;
+    height: auto;
+    max-height: 80vh; /* Não deixa o vídeo cortar no celular */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: translate3d(0, 0, 0);
+}
+
+/* Botão de fechar (o Xzinho) */
+#fechar-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#fechar-modal:hover {
+    color: #ff4d6d; /* Brilha na cor do seu botão ao passar o mouse */
+}
+
+/* Garante que a classe hidden continue funcionando para sumir com o modal */
+#modal-video.hidden {
+    display: none !important;
+}
+
+/* 1. Esta parte controla a CAIXA que fica no meio da tela */
+.container-bonequinho {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; 
+    z-index: 999;
+    width: auto;
+}
+/* 2. Esta parte controla o TAMANHO e o visual dos bonequinhos */
+.container-bonequinho img {
+    width: 300px;            /* Tamanho dos bonequinhos */
+    height: auto;            /* Mantém a proporção sem distorcer */
+    display: block;
+    cursor: pointer;         /* Mostra a mãozinha de clique */
+    transition: transform 0.3s ease; /* Deixa o efeito de crescer suave */
+}
+
+/* 3. Efeito opcional: quando ele passar o mouse por cima, o bonequinho cresce de leve */
+.container-bonequinho img:hover {
+    transform: scale(1.1);   /* Aumenta 10% do tamanho ao passar o mouse */
+}
+.bonequinho {
+    position: absolute;
+    bottom: 100px;        /* aparece acima do boneco */
+    left: 0;
+    background: #fff0f5;
+    border: 1px solid #f4c0d1;
+    color: #72243E;
+    font-size: 13px;
+    padding: 7px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+    opacity: 0;                        /* invisível por padrão */
+    transition: opacity 0.3s ease;    /* aparece suave */
+    pointer-events: none;             /* não atrapalha o clique */
+}
+
+/* quando passar o mouse no container, a mensagem aparece */
+.container-bonequinho:hover .bonequinho {
+    opacity: 1;
+}
+
+
+

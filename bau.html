@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>nosso bauzinho do amor</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman',serif;background:#fff8fb;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem}
+.page{width:100%;max-width:580px}
+
+.chest-area{text-align:center;margin-bottom:2rem;cursor:pointer;user-select:none}
+.chest-svg{display:block;margin:0 auto 10px}
+.chest-title{font-size:24px;font-weight:normal;color:#3a3a3a;margin-bottom:4px}
+.chest-sub{font-size:13px;color:#bbb;font-family:-apple-system,sans-serif}
+.chest-hint{font-size:12px;color:#D4537E;margin-top:10px;font-family:-apple-system,sans-serif}
+
+.counter{display:flex;justify-content:center;gap:32px;margin-bottom:2rem}
+.cnt-item{text-align:center}
+.cnt-num{font-size:26px;font-weight:500;color:#D4537E;font-family:-apple-system,sans-serif}
+.cnt-lbl{font-size:11px;color:#bbb;margin-top:2px;font-family:-apple-system,sans-serif}
+
+.compose{background:#fff;border:1px solid #f4c0d1;border-radius:16px;padding:1.1rem 1.3rem;margin-bottom:1.6rem}
+.compose-top{display:flex;gap:8px;margin-bottom:8px}
+.who-sel{padding:9px 10px;font-size:14px;border:1px solid #f0e0e8;border-radius:10px;background:#fafafa;color:#3a3a3a;cursor:pointer;font-family:-apple-system,sans-serif;flex-shrink:0}
+.compose-input{flex:1;padding:9px 13px;font-size:14px;border:1px solid #f0e0e8;border-radius:10px;outline:none;background:#fafafa;color:#3a3a3a;font-family:Georgia,serif}
+.compose-input:focus{border-color:#D4537E}
+.compose-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.char-hint{font-size:12px;color:#ccc;font-family:-apple-system,sans-serif}
+.add-btn{background:#D4537E;color:#fff;border:none;padding:9px 22px;border-radius:10px;font-size:14px;cursor:pointer;font-family:-apple-system,sans-serif}
+.add-btn:hover{background:#72243E}
+
+.filter-row{display:flex;gap:6px;margin-bottom:1.2rem;flex-wrap:wrap}
+.pill{padding:6px 14px;border-radius:20px;border:1px solid #f4c0d1;font-size:13px;cursor:pointer;background:#fff;color:#993556;font-family:-apple-system,sans-serif}
+.pill.active{background:#D4537E;color:#fff;border-color:#D4537E}
+
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.note-card{border-radius:14px;padding:1.1rem 1.2rem;position:relative;border:1px solid transparent}
+.note-card.color-0{background:#fff0f5;border-color:#fad0df}
+.note-card.color-1{background:#f0f5ff;border-color:#c5d8fc}
+.note-card.color-2{background:#f0faf5;border-color:#b8ecd5}
+.note-card.color-3{background:#fffbf0;border-color:#fce8a0}
+.note-card.color-4{background:#f8f0ff;border-color:#dcc5fc}
+.note-text{font-size:15px;line-height:1.7;color:#3a3a3a;margin-bottom:.8rem}
+.note-footer{display:flex;align-items:center;justify-content:space-between}
+.note-who{font-size:12px;font-weight:500;padding:3px 9px;border-radius:20px;font-family:-apple-system,sans-serif}
+
+/* ===== EDITE OS NOMES AQUI ===== */
+/* Substitua "eu" e "meu amor" pelos nomes de vocês nos .who-NAME abaixo */
+.who-ari{background:#FBEAF0;color:#72243E}
+.who-pedrinho{background:#e8f0ff;color:#0C447C}
+/* ================================ */
+
+.note-del{background:none;border:none;cursor:pointer;color:#ddd;font-size:14px;padding:2px;font-family:-apple-system,sans-serif}
+.note-del:hover{color:#c0415f}
+
+.empty-state{text-align:center;padding:3rem 1rem;color:#ccc;font-family:-apple-system,sans-serif;font-size:14px}
+.empty-ico{font-size:40px;display:block;margin-bottom:.8rem}
+
+.spotlight{background:#fff0f5;border:1px solid #f4c0d1;border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1.6rem;display:none;text-align:center}
+.spotlight-label{font-size:11px;color:#D4537E;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem;font-family:-apple-system,sans-serif}
+.spotlight-text{font-size:18px;color:#3a3a3a;line-height:1.7;font-style:italic}
+.spotlight-who{margin-top:.7rem;font-size:13px;color:#bbb;font-family:-apple-system,sans-serif}
+
+.random-btn{display:block;margin:1.6rem auto 0;background:none;border:1px solid #f4c0d1;border-radius:20px;padding:9px 24px;font-size:14px;color:#D4537E;cursor:pointer;font-family:-apple-system,sans-serif}
+.random-btn:hover{background:#fff0f5}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="chest-area" onclick="toggleChest()">
+    <svg class="chest-svg" id="chest-svg" width="130" height="106" viewBox="0 0 130 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="chest-lid" style="transform-origin:65px 45px;transition:transform .45s cubic-bezier(.4,0,.2,1)">
+        <rect x="14" y="12" width="102" height="36" rx="7" fill="#F4C0D1" stroke="#D4537E" stroke-width="1.5"/>
+        <rect x="35" y="19" width="60" height="5" rx="2.5" fill="#ED93B1"/>
+        <rect x="55" y="35" width="20" height="13" rx="4" fill="#D4537E"/>
+        <circle cx="65" cy="41.5" r="3.5" fill="#fff"/>
+      </g>
+      <rect x="14" y="46" width="102" height="50" rx="6" fill="#FBEAF0" stroke="#D4537E" stroke-width="1.5"/>
+      <rect x="16" y="46" width="98" height="10" fill="#F4C0D1"/>
+      <rect x="55" y="46" width="20" height="14" rx="4" fill="#D4537E"/>
+      <circle cx="65" cy="53" r="3.5" fill="#fff"/>
+      <line x1="16" y1="70" x2="114" y2="70" stroke="#F4C0D1" stroke-width="1"/>
+    </svg>
+    <h1 class="chest-title">nosso bauzinho do amor</h1>
+    <p class="chest-sub">o que a gente ama um no outro</p>
+    <p class="chest-hint" id="chest-hint">clique para abrir o baú</p>
+  </div>
+
+  <div id="bauzinho-content" style="display:none">
+
+    <div class="counter">
+      <div class="cnt-item"><div class="cnt-num" id="cnt-total">0</div><div class="cnt-lbl">motivos</div></div>
+      <div class="cnt-item"><div class="cnt-num" id="cnt-ari">0</div><div class="cnt-lbl">ari</div></div>
+      <div class="cnt-item"><div class="cnt-num" id="cnt-pedrinho">0</div><div class="cnt-lbl">pedrinho</div></div>
+    </div>
+
+    <div class="spotlight" id="spotlight">
+      <div class="spotlight-label">motivo do momento &#10024;</div>
+      <div class="spotlight-text" id="spotlight-text"></div>
+      <div class="spotlight-who" id="spotlight-who"></div>
+    </div>
+
+    <div class="compose">
+      <div class="compose-top">
+        <!-- EDITE os nomes dentro das <option> para os nomes de vocês -->
+        <select class="who-sel" id="who-sel">
+          <option value="ari">ari</option>
+          <option value="pedrinho">pedrinho</option>
+        </select>
+        <input class="compose-input" id="note-input"
+          placeholder="eu amo..." maxlength="200"
+          oninput="document.getElementById('cc').textContent=this.value.length"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();addNote();}"/>
+      </div>
+      <div class="compose-footer">
+        <span class="char-hint"><span id="cc">0</span>/200</span>
+        <button class="add-btn" onclick="addNote()">guardar no baú</button>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <button class="pill active" onclick="setFilter('todos')" id="f-todos">todos</button>
+      <button class="pill" onclick="setFilter('ari')" id="f-ari">ari</button>
+      <button class="pill" onclick="setFilter('pedrinho')" id="f-pedrinho">pedrinho</button>
+    </div>
+
+    <div class="notes-grid" id="notes-grid"></div>
+
+    <button class="random-btn" onclick="showRandom()">sortear um motivo &#10024;</button>
+
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'bauzinho_amor';
+const COLORS = [0,1,2,3,4];
+let notes = [];
+let filter = 'todos';
+let isOpen = false;
+let colorIdx = 0;
+
+function load(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    notes = raw ? JSON.parse(raw) : [];
+  } catch(e){ notes = []; }
+}
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(notes)); }
+
+function toggleChest(){
+  isOpen = !isOpen;
+  const lid   = document.getElementById('chest-lid');
+  const hint  = document.getElementById('chest-hint');
+  const cont  = document.getElementById('bauzinho-content');
+  if(isOpen){
+    lid.style.transform  = 'rotate(-52deg) translateY(-20px)';
+    hint.textContent     = 'clique para fechar';
+    cont.style.display   = 'block';
+    render();
+  } else {
+    lid.style.transform  = '';
+    hint.textContent     = 'clique para abrir o baú';
+    cont.style.display   = 'none';
+  }
+}
+
+function addNote(){
+  const txt = document.getElementById('note-input').value.trim();
+  if(!txt) return;
+  const who = document.getElementById('who-sel').value;
+  notes.unshift({id: Date.now(), who, text: txt, color: colorIdx % COLORS.length});
+  colorIdx++;
+  save();
+  document.getElementById('note-input').value = '';
+  document.getElementById('cc').textContent   = '0';
+  render();
+}
+
+function delNote(id){
+  notes = notes.filter(n => n.id !== id);
+  save();
+  render();
+}
+
+function setFilter(f){
+  filter = f;
+  ['todos','ari','pedrinho'].forEach(k =>
+    document.getElementById('f-'+k).classList.toggle('active', k===f)
+  );
+  render();
+}
+
+function showRandom(){
+  if(!notes.length) return;
+  const n  = notes[Math.floor(Math.random() * notes.length)];
+  const sp = document.getElementById('spotlight');
+  document.getElementById('spotlight-text').textContent = n.text;
+  document.getElementById('spotlight-who').textContent  = n.who === 'ari' ? '— ari' : '— pedrinho';
+  sp.style.display = 'block';
+  sp.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function render(){
+  const ari   = notes.filter(n => n.who === 'ari').length;
+  const pedrinho = notes.filter(n => n.who === 'pedrinho').length;
+  document.getElementById('cnt-total').textContent = notes.length;
+  document.getElementById('cnt-ari').textContent    = ari;
+  document.getElementById('cnt-pedrinho').textContent  = pedrinho;
+
+  const visible = filter === 'todos' ? notes : notes.filter(n => n.who === filter);
+  const grid    = document.getElementById('notes-grid');
+
+  if(!visible.length){
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><span class="empty-ico">&#128149;</span>guarda o primeiro motivo aqui!</div>';
+    return;
+  }
+
+  grid.innerHTML = visible.map(n => `
+    <div class="note-card color-${n.color}">
+      <div class="note-text">${esc(n.text)}</div>
+      <div class="note-footer">
+        <span class="note-who ${n.who==='ari'?'who-ari':'who-pedrinho'}">${n.who==='ari'?'ari':'pedrinho'}</span>
+        <button class="note-del" onclick="delNote(${n.id})" title="remover">&#10005;</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+load();
+</script>
+</body>
+</html>
